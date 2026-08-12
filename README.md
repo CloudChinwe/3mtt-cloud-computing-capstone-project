@@ -44,9 +44,7 @@ Static Website Files
 ## 📁 Project Structure
 
 ```text
-hope4-communities/
-├── public/
-├── src/
+
 │   ├── App.jsx
 │   ├── App.css
 │   └── main.jsx
