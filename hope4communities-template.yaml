@@ -1,0 +1,127 @@
+---
+Metadata:
+  AWSToolsMetrics:
+    IaC_Generator: "arn:aws:cloudformation:eu-north-1:737138010769:generatedTemplate/46e195b6-6580-4095-84f7-43aaae1f2fba"
+Resources:
+  CloudFrontDistribution:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudFront::Distribution"
+    DeletionPolicy: "Retain"
+    Properties:
+      DistributionConfig:
+        Logging:
+          IncludeCookies: false
+          Bucket: ""
+          Prefix: ""
+        Comment: ""
+        DefaultRootObject: ""
+        Origins:
+        - ConnectionTimeout: 10
+          OriginAccessControlId: "E1CMS1GSE5QZXM"
+          ConnectionAttempts: 3
+          OriginCustomHeaders: []
+          DomainName: "hope-4-communities-foundation.s3.amazonaws.com"
+          OriginShield:
+            Enabled: false
+          S3OriginConfig:
+            OriginReadTimeout: 30
+            OriginAccessIdentity: ""
+          OriginPath: "/my-to-do-app/my-todo-app"
+          Id: "hope-4-communities-foundation.s3.amazonaws.com-mt01a8yb5fq"
+        ViewerCertificate:
+          MinimumProtocolVersion: "TLSv1"
+          SslSupportMethod: "vip"
+          CloudFrontDefaultCertificate: true
+        PriceClass: "PriceClass_All"
+        DefaultCacheBehavior:
+          Compress: true
+          FunctionAssociations: []
+          LambdaFunctionAssociations: []
+          TargetOriginId: "hope-4-communities-foundation.s3.amazonaws.com-mt01a8yb5fq"
+          ViewerProtocolPolicy: "redirect-to-https"
+          GrpcConfig:
+            Enabled: false
+          TrustedSigners: []
+          FieldLevelEncryptionId: ""
+          TrustedKeyGroups: []
+          AllowedMethods:
+          - "HEAD"
+          - "GET"
+          CachedMethods:
+          - "HEAD"
+          - "GET"
+          SmoothStreaming: false
+          CachePolicyId: "658327ea-f89d-4fab-a63d-7e88639e58f6"
+        Staging: false
+        CustomErrorResponses: []
+        ContinuousDeploymentPolicyId: ""
+        OriginGroups:
+          Quantity: 0
+          Items: []
+        Enabled: true
+        Aliases: []
+        IPV6Enabled: true
+        WebACLId: "arn:aws:wafv2:us-east-1:737138010769:global/webacl/CreatedByCloudFront-a2befb20/ef7b2b47-f4da-478d-8b30-8476ff2adbf8"
+        HttpVersion: "http2"
+        Restrictions:
+          GeoRestriction:
+            Locations: []
+            RestrictionType: "none"
+        CacheBehaviors: []
+      Tags:
+      - Value: "hope4com-distribution"
+        Key: "Name"
+  S3BucketHope4communitiesfoundation:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: "Retain"
+    Properties:
+      AbacStatus: "Disabled"
+      PublicAccessBlockConfiguration:
+        RestrictPublicBuckets: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        BlockPublicAcls: true
+      BucketName: "hope-4-communities-foundation"
+      OwnershipControls:
+        Rules:
+        - ObjectOwnership: "BucketOwnerEnforced"
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - BucketKeyEnabled: true
+          BlockedEncryptionTypes:
+            EncryptionType:
+            - "SSE-C"
+          ServerSideEncryptionByDefault:
+            SSEAlgorithm: "AES256"
+  CloudFrontOriginAccessControl:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudFront::OriginAccessControl"
+    DeletionPolicy: "Retain"
+    Properties:
+      OriginAccessControlConfig:
+        SigningBehavior: "always"
+        Description: "Created by CloudFront"
+        SigningProtocol: "sigv4"
+        OriginAccessControlOriginType: "s3"
+        Name: "oac-hope-4-communities-foundation.s3.amazonaws.com-mt01bbozsuw"
+  CloudFrontCachePolicy:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudFront::CachePolicy"
+    DeletionPolicy: "Retain"
+    Properties:
+      CachePolicyConfig:
+        Comment: "Policy with caching enabled. Supports Gzip and Brotli compression."
+        MinTTL: 1
+        MaxTTL: 3.1536E7
+        ParametersInCacheKeyAndForwardedToOrigin:
+          QueryStringsConfig:
+            QueryStringBehavior: "none"
+          EnableAcceptEncodingBrotli: true
+          HeadersConfig:
+            HeaderBehavior: "none"
+          CookiesConfig:
+            CookieBehavior: "none"
+          EnableAcceptEncodingGzip: true
+        DefaultTTL: 86400
+        Name: "Managed-CachingOptimized"
